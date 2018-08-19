@@ -11,5 +11,6 @@ ROS Kinetic pkg with general utilities, pcl, and image processing libraries
    
 ## Requirements:
   - dlib 19.9
-  - OpenCV 3.4
+  - OpenCV 3.4 compiled with GPU support
   - PCL 1.7
+  - CUDA 9.0
