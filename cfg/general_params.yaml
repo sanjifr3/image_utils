@@ -1,0 +1,56 @@
+name: Jetson
+device: Realsense # Kinect # Default # Realsense
+algorithm: 9
+gpu: true
+
+display:
+  save: false
+  show: false
+  pub: true
+  types:
+    rgb: true
+    disp: true
+
+image:
+  rgb_resolution: [1280,720] # [640,480]
+  depth_resolution: [1280,720] # [640,480]
+  kinect_rgb_resolution: [640,480]
+  kinect_depth_resolution: [640,480]
+  realsense_rgb_resolution: [1280,720]
+  realsense_depth_resolution: [1280,720]
+  
+  scale: 1
+  kinect_hFOV: 57
+  kinect_vFOV: 43
+  realsense_hFOV: 86
+  realsense_vFOV: 57
+  realsense_rgb_hFOV: 69.4
+  realsense_rgb_vFOV: 42.5
+  color_balance: false
+  
+topics:
+  rgb: camera3D/color/image_rect_color # camera/rgb/image_raw # camera/rgb/image_color 
+  depth: camera3D/depth/image_rect_raw
+  pts: camera3D/depth_registered/points
+  kinect_rgb: camera/rgb/image_rect_color # camera/rgb/image_raw
+  kinect_depth: camera/depth_registered/image_raw
+  kinect_pts: camera/depth_registered/points  
+  realsense_rgb: camera3D/color/image_rect_color
+  realsense_depth: camera3D/aligned_depth_to_color/image_raw # camera3D/depth/image_rect_raw
+  realsense_pts: camera3D/depth_registered/points
+  xtion_rgb: camera/rgb/image_raw
+  xtion_depth: camera/depth/image_raw
+  xtion_pts: camera/depth/points
+  head_cam_rgb: head_camera/rgb/image_raw
+  webcam: 0
+   
+frames:
+  kinect: camera_depth_optical_frame
+  robot: base_link
+  map: map
+  
+PCLUtilities:
+  head_offset: 0
+  kinect_cloud_shift: 0
+  blueberry_cloud_shift: 0
+  avg_coord_granularity: 2
