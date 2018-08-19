@@ -1,0 +1,7 @@
+string type
+point coordinate
+float32 angle
+string color
+float32 alpha
+---
+bool success

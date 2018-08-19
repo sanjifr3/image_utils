@@ -53,6 +53,22 @@ find_package(catkin REQUIRED
 add_definitions(-DOPENCV)
 add_definitions(-O4 -g)
 
+add_message_files(
+	DIRECTORY msg
+	FILES point.msg
+)
+
+add_service_files(
+  DIRECTORY srv
+  FILES draw_rviz.srv
+)
+
+generate_messages(
+  DEPENDENCIES
+  std_msgs
+  sensor_msgs
+)
+
 generate_dynamic_reconfigure_options(
   cfg/GeneralRQT.cfg
 )
@@ -91,6 +107,7 @@ if (CUDA_FOUND)
   cuda_add_library(im_proc_lib src/libraries/ImageProcessor.cpp)
   cuda_add_library(pcl_utils_lib src/libraries/PCLUtilities.cpp)
   cuda_add_executable(testNode src/test_node.cpp)
+  cuda_add_executable(rvizDrawingServer src/servers/rvizDrawingServer.cpp)
 else()
   add_library(utils_lib src/libraries/Utilities.cpp)
   add_library(im_grab_lib src/libraries/ImageGrabber.cpp)
@@ -98,6 +115,7 @@ else()
   add_library(pcl_utils_lib src/libraries/PCLUtilities.cpp)
   
   add_executable(testNode src/test_node.cpp)
+  add_executable(rvizDrawingServer src/servers/rvizDrawingServer.cpp)
 endif()
 
 list(REMOVE_ITEM PCL_LIBRARIES "vtkproj4")
@@ -109,3 +127,8 @@ target_link_libraries(pcl_utils_lib utils_lib)
 
 add_dependencies(utils_lib ${PROJECT_NAME}_gencfg)
 target_link_libraries(testNode utils_lib im_grab_lib im_proc_lib pcl_utils_lib)
+
+# RViz Drawing Server
+
+target_link_libraries(rvizDrawingServer ${catkin_LIBRARIES})
+add_dependencies(rvizDrawingServer ${catkin_EXPORTED_TARGETS} ${PROJECT_NAME}_generate_messages_cpp)
